@@ -15,6 +15,6 @@ Check the Demo project for more details
 
 ## Acknowledgements
 The off-screen and lock aspect ratio code was written by me and the rest inspiration came from 
-![Sketch+Accessibility by Apple®](http://developer.apple.com/library/mac/#samplecode/Sketch+Accessibility/Introduction/Intro.html)
+[Sketch+Accessibility by Apple®](http://developer.apple.com/library/mac/#samplecode/Sketch+Accessibility/Introduction/Intro.html)
 
-![KSSelectionBorder by karelia](https://github.com/karelia/KSSelectionBorder)
+[KSSelectionBorder](https://github.com/karelia/KSSelectionBorder) by ([@karelia])(https://github.com/karelia)
