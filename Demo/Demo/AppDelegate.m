@@ -7,10 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "MyImageView.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize imageView = _imageView;
 
 - (void)dealloc
 {

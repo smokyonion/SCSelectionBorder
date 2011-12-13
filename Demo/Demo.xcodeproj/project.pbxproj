@@ -19,6 +19,8 @@
 		9F1F855C149801210090ABBC /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F855B149801210090ABBC /* DemoTests.m */; };
 		9F1F8568149801CC0090ABBC /* SCSelectionBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */; };
 		9F1F856A149806FF0090ABBC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F8569149806FF0090ABBC /* README.md */; };
+		9F1F856D14980B8C0090ABBC /* MyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F856C14980B8B0090ABBC /* MyImageView.m */; };
+		9F1F856F14980E4C0090ABBC /* trails.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F856E14980E4C0090ABBC /* trails.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,9 @@
 		9F1F8566149801CC0090ABBC /* SCSelectionBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSelectionBorder.h; path = ../SCSelectionBorder.h; sourceTree = "<group>"; };
 		9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSelectionBorder.m; path = ../SCSelectionBorder.m; sourceTree = "<group>"; };
 		9F1F8569149806FF0090ABBC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		9F1F856B14980B8B0090ABBC /* MyImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyImageView.h; sourceTree = "<group>"; };
+		9F1F856C14980B8B0090ABBC /* MyImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyImageView.m; sourceTree = "<group>"; };
+		9F1F856E14980E4C0090ABBC /* trails.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = trails.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +125,8 @@
 		9F1F8537149801200090ABBC /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				9F1F856B14980B8B0090ABBC /* MyImageView.h */,
+				9F1F856C14980B8B0090ABBC /* MyImageView.m */,
 				9F1F8543149801200090ABBC /* AppDelegate.h */,
 				9F1F8544149801200090ABBC /* AppDelegate.m */,
 				9F1F8546149801210090ABBC /* MainMenu.xib */,
@@ -132,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				9F1F8569149806FF0090ABBC /* README.md */,
+				9F1F856E14980E4C0090ABBC /* trails.jpg */,
 				9F1F8539149801200090ABBC /* Demo-Info.plist */,
 				9F1F853A149801200090ABBC /* InfoPlist.strings */,
 				9F1F853D149801200090ABBC /* main.m */,
@@ -244,6 +252,7 @@
 				9F1F8542149801200090ABBC /* Credits.rtf in Resources */,
 				9F1F8548149801210090ABBC /* MainMenu.xib in Resources */,
 				9F1F856A149806FF0090ABBC /* README.md in Resources */,
+				9F1F856F14980E4C0090ABBC /* trails.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +290,7 @@
 				9F1F853E149801200090ABBC /* main.m in Sources */,
 				9F1F8545149801200090ABBC /* AppDelegate.m in Sources */,
 				9F1F8568149801CC0090ABBC /* SCSelectionBorder.m in Sources */,
+				9F1F856D14980B8C0090ABBC /* MyImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

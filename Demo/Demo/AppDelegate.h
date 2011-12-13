@@ -8,8 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MyImageView;
+
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+{
+    MyImageView *_imageView;
+    
+}
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet MyImageView *imageView;
+
 
 @end
