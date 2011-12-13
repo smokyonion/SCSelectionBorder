@@ -17,6 +17,7 @@
 		9F1F8551149801210090ABBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F8531149801200090ABBC /* Cocoa.framework */; };
 		9F1F8559149801210090ABBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F8557149801210090ABBC /* InfoPlist.strings */; };
 		9F1F855C149801210090ABBC /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F855B149801210090ABBC /* DemoTests.m */; };
+		9F1F8568149801CC0090ABBC /* SCSelectionBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		9F1F8558149801210090ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F1F855A149801210090ABBC /* DemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoTests.h; sourceTree = "<group>"; };
 		9F1F855B149801210090ABBC /* DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoTests.m; sourceTree = "<group>"; };
+		9F1F8566149801CC0090ABBC /* SCSelectionBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSelectionBorder.h; path = ../SCSelectionBorder.h; sourceTree = "<group>"; };
+		9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSelectionBorder.m; path = ../SCSelectionBorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,7 @@
 		9F1F8522149801200090ABBC = {
 			isa = PBXGroup;
 			children = (
+				9F1F8565149801B90090ABBC /* SCSelectionBorder */,
 				9F1F8537149801200090ABBC /* Demo */,
 				9F1F8554149801210090ABBC /* DemoTests */,
 				9F1F8530149801200090ABBC /* Frameworks */,
@@ -151,6 +155,15 @@
 				9F1F8557149801210090ABBC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9F1F8565149801B90090ABBC /* SCSelectionBorder */ = {
+			isa = PBXGroup;
+			children = (
+				9F1F8566149801CC0090ABBC /* SCSelectionBorder.h */,
+				9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */,
+			);
+			name = SCSelectionBorder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +276,7 @@
 			files = (
 				9F1F853E149801200090ABBC /* main.m in Sources */,
 				9F1F8545149801200090ABBC /* AppDelegate.m in Sources */,
+				9F1F8568149801CC0090ABBC /* SCSelectionBorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
