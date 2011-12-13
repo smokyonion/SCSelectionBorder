@@ -18,7 +18,7 @@ Check the Demo project for more details
 
 ## Acknowledgements
 
-The off-screen and lock aspect ratio code was written by me and the rest inspiration came from 
+The off-screen and lock aspect ratio code were written by me and the rest inspiration came from 
 
 [Sketch+Accessibility](http://developer.apple.com/library/mac/#samplecode/Sketch+Accessibility/Introduction/Intro.html) by Apple
 
