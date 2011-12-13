@@ -8,6 +8,7 @@
 
 #import "SCSelectionBorder.h"
 
+
 // The handles that graphics draw on themselves are 10 point by 10 point rectangles.
 const CGFloat SCSelectionBorderHandleWidth = 10.0f;
 const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
@@ -60,7 +61,6 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 @synthesize lockAspectRatio = _lockAspectRatio;
 @synthesize minSize = _minSize;
 @synthesize selectedRect = _selectedRect;
-@synthesize lastMouseLocation = _lastMouseLocation;
 @synthesize borderWidth = _borderWidth;
 @synthesize gridLineNumber = _gridLineNumber;
 @synthesize drawingGrids = _drawingGrids;
@@ -73,6 +73,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         self.selectedRect = NSZeroRect;
         self.minSize = NSMakeSize(100, 100);
         self.aspectRatio = NSMakeSize(1, 1);
+        self.borderWidth = 1.0;
         [self setColors:[NSColor blueColor]];
         self.gridLineNumber = 2;
         self.drawingGrids = YES;
@@ -110,12 +111,12 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         
         [self.borderColor set];
         [path stroke];
-
+        
         //Stop drawing grids before I solve the coord issue.
-//        if (self.isDrawingGrids) {
-////            //[NSBezierPath sc_drawGridsInRect:rect lineNumber:self.gridLineNumber];
-//            [self drawGridsInRect:self.selectedRect lineNumber:2];
-//        }
+        //        if (self.isDrawingGrids) {
+        ////            //[NSBezierPath sc_drawGridsInRect:rect lineNumber:self.gridLineNumber];
+        //            [self drawGridsInRect:self.selectedRect lineNumber:2];
+        //        }
         
         if ([self isDrawingHandles]) {
             [self drawHandlesInView:aView];
@@ -190,8 +191,8 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 {
     BOOL result;
     result = [view mouse:mousePoint inRect:self.selectedRect];
-//    result = NSPointInRect(mousePoint, frameRect);
-//    result = NSPointInRect(mousePoint, self.selectedRect);
+    //    result = NSPointInRect(mousePoint, frameRect);
+    //    result = NSPointInRect(mousePoint, self.selectedRect);
     
     // Search through the handles
     SCSelectionBorderHandle handle = (SCSelectionBorderHandle)[self handleAtPoint:mousePoint frameRect:self.selectedRect];
@@ -343,7 +344,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 - (void)translateByX:(CGFloat)deltaX y:(CGFloat)deltaY inView:(NSView *)view
 {
     NSRect rect = NSOffsetRect(self.selectedRect, deltaX, deltaY);
- 
+    
     if (!self.canDrawOffView) {
         // we don't want the border going off the bounds of view
         NSRect bounds = view.bounds;
@@ -354,7 +355,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         CGFloat h = (rect.origin.y + rect.size.height);
         if (h > bounds.size.height) rect.origin.y = rect.origin.y - (h - bounds.size.height); // top edge
     }
-
+    
     [self setSelectedRect:rect];
 }
 
@@ -457,14 +458,14 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
     
     // Done
     self.selectedRect = [self frameRectForGraphicBounds:rect isLockedAspect:self.canLockAspectRatio usingHandle:(SCSelectionBorderHandle)newHandle inView:view];
-
+    
     // Done
     //self.selectedRect = rect;
-
+    
     [view setNeedsDisplay:YES]; // redrawing the changes
     
     return newHandle;
-
+    
 }
 
 - (void)resizeWithEvent:(NSEvent *)theEvent byHandle:(SCSelectionBorderHandle)handle atPoint:(NSPoint)where inView:(NSView *)view

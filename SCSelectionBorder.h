@@ -33,7 +33,7 @@ enum
 
 @interface SCSelectionBorder : NSObject
 {
- @private
+@private
     
     //unsigned int _resizingMask;
     NSColor *_borderColor;
@@ -44,13 +44,12 @@ enum
     BOOL _lockAspectRatio;
     NSSize _minSize;
     NSRect _selectedRect;
-    NSPoint _lastMouseLocation;
     
     BOOL _drawingHandles;
     BOOL _drawingGrids;
     BOOL _drawingOffView;
     unsigned int _gridLineNumber;
-
+    
 }
 
 @property(retain) NSColor *borderColor;
@@ -60,7 +59,6 @@ enum
 @property(readonly, getter = canLockAspectRatio) BOOL lockAspectRatio;
 @property(assign) NSSize minSize;
 @property(nonatomic) NSRect selectedRect;
-@property(nonatomic) NSPoint lastMouseLocation;
 @property(nonatomic) CGFloat borderWidth;
 @property(assign) unsigned int gridLineNumber;
 @property(assign, getter = isDrawingGrids) BOOL drawingGrids;
