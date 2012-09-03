@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CTQuartz2DController.h"
 
 @class MyImageView;
 
@@ -14,7 +15,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
     MyImageView *_imageView;
-    
+    CTQuartz2DController *_controller;
 }
 
 @property (assign) IBOutlet NSWindow *window;

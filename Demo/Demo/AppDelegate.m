@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MyImageView.h"
+#import "CTQuartz2DController.h"
 
 @implementation AppDelegate
 
@@ -16,12 +17,19 @@
 
 - (void)dealloc
 {
+    [_controller release];
     [super dealloc];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+}
+
+- (void)awakeFromNib
+{
+    _controller = [[CTQuartz2DController alloc] initWithWindow:nil];
+    [_controller showWindow:self];
 }
 
 @end
