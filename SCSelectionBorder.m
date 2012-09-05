@@ -66,6 +66,8 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 @synthesize drawingGrids = _drawingGrids;
 @synthesize drawingOffView = _drawingOffView;
 
+@synthesize fillCGColor = _fillCGColor;
+
 - (id)init
 {
     self = [super init];
@@ -90,6 +92,11 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 {
     [_borderColor release], _borderColor = nil;
     [_fillColor release], _fillColor = nil;
+    
+    if (_fillCGColor) {
+        CGColorRelease(_fillCGColor), _fillCGColor = NULL;
+    }
+    
     [super dealloc];
 }
 

@@ -13,6 +13,8 @@
     SCSelectionBorder *_selectionBorder;
 }
 
+@property (readonly, retain) SCSelectionBorder *selectionBorader;
+
 - (IBAction)takeColorFrom:(id)sender;
 - (IBAction)setAspectRatio:(id)sender;
 

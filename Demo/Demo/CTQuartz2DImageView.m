@@ -10,6 +10,8 @@
 
 @implementation CTQuartz2DImageView
 
+@synthesize selectionBorader = _selectionBorder;
+
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -45,42 +47,44 @@
 	// Obtain the Quartz context from the current NSGraphicsContext at the time the view's
 	// drawRect method is called. This context is only appropriate for drawing in this invocation
 	// of the drawRect method.
-    //CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
-    
-    //CGRect ourRect = CGRectMake(40, 40, 130, 100);
-    
-    
+    [_selectionBorder drawCGContext:context];
 }
 
 - (void)awakeFromNib
 {
     self.image = [NSImage imageNamed:@"trails.jpg"];
+    _selectionBorder.selectedRect = CGRectMake(100, 100, 200, 200);
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    NSPoint lastLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+
+    // Need to Refactoring this method for Quartz 2D.
+    [_selectionBorder selectAndTrackMouseWithEvent:theEvent atPoint:lastLocation inView:self];
     
 }
 
 - (IBAction)takeColorFrom:(id)sender
 {
-    // NSColor convert to CGColorRef ...
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef color = CGColorCreateFromNSColor([sender color], colorSpace);
-    
-    // Do something...
-    
-    
+    [_selectionBorder setCGColors:[sender color]];
     [self setNeedsDisplay:YES];
-    
-    CGColorSpaceRelease(colorSpace);
-    CGColorRelease(color);
 }
 
 - (IBAction)setAspectRatio:(id)sender
 {
+    if ([sender state] == NSOnState) {
+        CGSize size = CGSizeMake(100, 100);
+        _selectionBorder.aspectRatio = size;
+        _selectionBorder.lockAspectRatio = YES;
+    }
+    else {
+        _selectionBorder.lockAspectRatio = NO;
+    }
     
+    [self setNeedsDisplay:YES];
 }
 
 @end
