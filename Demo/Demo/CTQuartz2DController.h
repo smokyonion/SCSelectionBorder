@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CTQuartz2DController : NSWindowController
+@class CTQuartz2DImageView;
+
+@interface CTQuartz2DController : NSWindowController {
+    IBOutlet CTQuartz2DImageView *_quartz2DImageView;
+}
+
+
+@property (assign) CTQuartz2DImageView *quartz2DImageView;
 
 @end

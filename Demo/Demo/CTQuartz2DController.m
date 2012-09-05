@@ -14,6 +14,8 @@
 
 @implementation CTQuartz2DController
 
+@synthesize quartz2DImageView = _quartz2DImageView;
+
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
