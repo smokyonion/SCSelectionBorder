@@ -55,7 +55,7 @@
 - (void)awakeFromNib
 {
     self.image = [NSImage imageNamed:@"trails.jpg"];
-    _selectionBorder.selectedRect = CGRectMake(100, 100, 200, 200);
+    _selectionBorder.selectedRect = NSMakeRect(100, 100, 200, 200);
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -69,7 +69,7 @@
 
 - (IBAction)takeColorFrom:(id)sender
 {
-    [_selectionBorder setCGColors:[sender color]];
+    [_selectionBorder setColors:[sender color]];
     [self setNeedsDisplay:YES];
 }
 

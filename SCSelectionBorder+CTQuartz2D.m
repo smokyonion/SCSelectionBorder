@@ -7,6 +7,7 @@
 //
 
 #import "SCSelectionBorder+CTQuartz2D.h"
+#import <objc/runtime.h>
 
 CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 {
@@ -19,28 +20,26 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 
 @implementation SCSelectionBorder (CTQuartz2D)
 
-- (void)setCGColors:(NSColor *)color
-{
-    if (_fillCGColor) {
-        CGColorRelease(_fillCGColor), _fillCGColor = NULL;
-    }
-    
-    // NSColor convert to CGColorRef ...
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    _fillCGColor = CGColorCreateFromNSColor(color, colorSpace);
-    CGColorSpaceRelease(colorSpace);
-}
-
 - (void)drawCGContext:(CGContextRef)context
 {
+    CGRect rect = NSRectToCGRect(self.selectedRect);
+
+    // NSColor convert to CGColorRef ...
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef fillColor = CGColorCreateFromNSColor(self.fillColor, colorSpace);
+    CGColorSpaceRelease(colorSpace);
+    
+    
     // Set the fill color.
-    CGContextSetFillColorWithColor(context, _fillCGColor);
+    CGContextSetFillColorWithColor(context, fillColor);
+
+    CGColorRelease(fillColor);
     
     // Set context to transparent.
-    CGContextSetAlpha(context, 0.2);
+    //CGContextSetAlpha(context, 0.2);
     
     // Fill the rect.
-	CGContextFillRect(context, _selectedRect);
+	CGContextFillRect(context, rect);
     
     
 	// Save the current graphics state.
@@ -48,6 +47,7 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     
     // Restore the graphics state most recently saved .
 	//CGContextRestoreGState(context);
+    
 }
 
 @end
