@@ -50,8 +50,6 @@ enum
     BOOL _drawingOffView;
     unsigned int _gridLineNumber;
     
-    //Quartz 2D objects.
-    CGColorRef _fillCGColor;
 }
 
 @property(retain) NSColor *borderColor;
@@ -66,7 +64,6 @@ enum
 @property(assign, getter = isDrawingGrids) BOOL drawingGrids;
 @property(assign, getter = canDrawOffView) BOOL drawingOffView;
 
-@property(assign) CGColorRef fillCGColor;
 
 - (void)setColors:(NSColor *)aColor;
 
