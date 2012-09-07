@@ -22,6 +22,7 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 
 - (void)drawCGContext:(CGContextRef)context
 {
+    // Get selectedRect from NSRect.
     CGRect selectedRect = NSRectToCGRect(self.selectedRect);
 
     // NSColor convert to CGColorRef ...
@@ -35,6 +36,9 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 
     CGColorRelease(fillColor);
     
+    // Save the current graphics state.
+	CGContextSaveGState(context);
+    
     // Fill the rect.
 	CGContextFillRect(context, selectedRect);
     
@@ -44,12 +48,43 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     CGContextAddRect(context, selectedRect);
     CGContextStrokePath(context);
     
-	// Save the current graphics state.
-	//CGContextSaveGState(context);
     
     // Restore the graphics state most recently saved .
-	//CGContextRestoreGState(context);
+	CGContextRestoreGState(context);
     
+}
+
+- (void)drawHandleInCGContext:(CGContextRef)context rect:(NSRect)rect
+{
+    if (self.canLockAspectRatio) {
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMinX(rect), NSMinY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMaxX(rect), NSMinY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMinX(rect), NSMaxY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMaxX(rect), NSMaxY(rect))];
+    } else {
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMinX(rect), NSMinY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMidX(rect), NSMinY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMaxX(rect), NSMidY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMinX(rect), NSMidY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMaxX(rect), NSMinY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMinX(rect), NSMaxY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMidX(rect), NSMaxY(rect))];
+        [self drawHandleInCGContext:context atPoint:CGPointMake(NSMaxX(rect), NSMaxY(rect))];
+    }
+}
+
+- (void)drawHandleInCGContext:(CGContextRef)context atPoint:(CGPoint)point
+{
+    // Rect of handle.
+    CGRect handle = CGRectMake(point.x - SCSelectionBorderHandleHalfWidth, point.y - SCSelectionBorderHandleHalfWidth,
+                               SCSelectionBorderHandleWidth, SCSelectionBorderHandleWidth);
+    
+    // Drawing handle and shadow.
+    CGSize shadowOffset = CGSizeMake(-1.5, 1.5);
+    CGContextSetShadow(context, shadowOffset, 1.5);
+    CGContextSetRGBFillColor(context, 0.6, 0.6, 1, 1);
+    
+    CGContextFillRect(context, handle);
 }
 
 @end

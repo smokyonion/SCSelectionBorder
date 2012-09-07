@@ -13,5 +13,7 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace);
 @interface SCSelectionBorder (CTQuartz2D)
 
 - (void)drawCGContext:(CGContextRef)context;
+- (void)drawHandleInCGContext:(CGContextRef)context rect:(NSRect)rect;
+- (void)drawHandleInCGContext:(CGContextRef)context atPoint:(CGPoint)point;
 
 @end
