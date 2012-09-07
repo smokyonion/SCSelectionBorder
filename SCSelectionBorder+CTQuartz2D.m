@@ -22,25 +22,27 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 
 - (void)drawCGContext:(CGContextRef)context
 {
-    CGRect rect = NSRectToCGRect(self.selectedRect);
+    CGRect selectedRect = NSRectToCGRect(self.selectedRect);
 
     // NSColor convert to CGColorRef ...
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef fillColor = CGColorCreateFromNSColor(self.fillColor, colorSpace);
     CGColorSpaceRelease(colorSpace);
-    
+
     
     // Set the fill color.
     CGContextSetFillColorWithColor(context, fillColor);
 
     CGColorRelease(fillColor);
     
-    // Set context to transparent.
-    //CGContextSetAlpha(context, 0.2);
-    
     // Fill the rect.
-	CGContextFillRect(context, rect);
+	CGContextFillRect(context, selectedRect);
     
+    // Draw bolder on selectedRect.
+    CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
+    CGContextSetLineWidth(context, 1);
+    CGContextAddRect(context, selectedRect);
+    CGContextStrokePath(context);
     
 	// Save the current graphics state.
 	//CGContextSaveGState(context);
