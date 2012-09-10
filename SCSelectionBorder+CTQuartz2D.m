@@ -81,10 +81,15 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     
     // Drawing handle and shadow.
     CGSize shadowOffset = CGSizeMake(-1.5, 1.5);
-    CGContextSetShadow(context, shadowOffset, 1.5);
+    // Create shadow color.
+    CGColorRef shadowColor = CGColorCreateGenericRGB(0, 0, 0, 1);
+    CGContextSetShadowWithColor(context, shadowOffset, 1.5, shadowColor);
+
+    // Drawing handle.
     CGContextSetRGBFillColor(context, 0.6, 0.6, 1, 1);
-    
     CGContextFillRect(context, handle);
+    
+    CGColorRelease(shadowColor);
 }
 
 @end
