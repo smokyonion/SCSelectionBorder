@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A1533A615F5DB230094C0F6 /* CTQuartz2DImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1533A515F5DB230094C0F6 /* CTQuartz2DImageView.m */; };
+		8A47A63115F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A47A63015F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.m */; };
+		8A9AE85815F48BBD0009791E /* CTQuartz2DController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A9AE85715F48BBD0009791E /* CTQuartz2DController.m */; };
+		8A9AE85B15F48BD20009791E /* Quartz2D.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9AE85915F48BD20009791E /* Quartz2D.xib */; };
 		9F1F8532149801200090ABBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1F8531149801200090ABBC /* Cocoa.framework */; };
 		9F1F853C149801200090ABBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F1F853A149801200090ABBC /* InfoPlist.strings */; };
 		9F1F853E149801200090ABBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F853D149801200090ABBC /* main.m */; };
@@ -34,6 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A1533A415F5DB230094C0F6 /* CTQuartz2DImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTQuartz2DImageView.h; sourceTree = "<group>"; };
+		8A1533A515F5DB230094C0F6 /* CTQuartz2DImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTQuartz2DImageView.m; sourceTree = "<group>"; };
+		8A47A62F15F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SCSelectionBorder+CTQuartz2D.h"; path = "../SCSelectionBorder+CTQuartz2D.h"; sourceTree = "<group>"; };
+		8A47A63015F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SCSelectionBorder+CTQuartz2D.m"; path = "../SCSelectionBorder+CTQuartz2D.m"; sourceTree = "<group>"; };
+		8A9AE85615F48BBD0009791E /* CTQuartz2DController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTQuartz2DController.h; sourceTree = "<group>"; };
+		8A9AE85715F48BBD0009791E /* CTQuartz2DController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTQuartz2DController.m; sourceTree = "<group>"; };
+		8A9AE85A15F48BD20009791E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Quartz2D.xib; sourceTree = "<group>"; };
 		9F1F852D149801200090ABBC /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1F8531149801200090ABBC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9F1F8534149801200090ABBC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -82,6 +93,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AA9E0FD15F4A43700DFFD64 /* Quartz 2D */ = {
+			isa = PBXGroup;
+			children = (
+				8A9AE85615F48BBD0009791E /* CTQuartz2DController.h */,
+				8A9AE85715F48BBD0009791E /* CTQuartz2DController.m */,
+				8A9AE85915F48BD20009791E /* Quartz2D.xib */,
+				8A1533A415F5DB230094C0F6 /* CTQuartz2DImageView.h */,
+				8A1533A515F5DB230094C0F6 /* CTQuartz2DImageView.m */,
+			);
+			name = "Quartz 2D";
+			sourceTree = "<group>";
+		};
 		9F1F8522149801200090ABBC = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +154,7 @@
 				9F1F8544149801200090ABBC /* AppDelegate.m */,
 				9F1F8546149801210090ABBC /* MainMenu.xib */,
 				9F1F8538149801200090ABBC /* Supporting Files */,
+				8AA9E0FD15F4A43700DFFD64 /* Quartz 2D */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -173,6 +197,8 @@
 			children = (
 				9F1F8566149801CC0090ABBC /* SCSelectionBorder.h */,
 				9F1F8567149801CC0090ABBC /* SCSelectionBorder.m */,
+				8A47A62F15F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.h */,
+				8A47A63015F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.m */,
 			);
 			name = SCSelectionBorder;
 			sourceTree = "<group>";
@@ -253,6 +279,7 @@
 				9F1F8548149801210090ABBC /* MainMenu.xib in Resources */,
 				9F1F856A149806FF0090ABBC /* README.md in Resources */,
 				9F1F856F14980E4C0090ABBC /* trails.jpg in Resources */,
+				8A9AE85B15F48BD20009791E /* Quartz2D.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +318,9 @@
 				9F1F8545149801200090ABBC /* AppDelegate.m in Sources */,
 				9F1F8568149801CC0090ABBC /* SCSelectionBorder.m in Sources */,
 				9F1F856D14980B8C0090ABBC /* MyImageView.m in Sources */,
+				8A9AE85815F48BBD0009791E /* CTQuartz2DController.m in Sources */,
+				8A1533A615F5DB230094C0F6 /* CTQuartz2DImageView.m in Sources */,
+				8A47A63115F5FD0000D95294 /* SCSelectionBorder+CTQuartz2D.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +343,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		8A9AE85915F48BD20009791E /* Quartz2D.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A9AE85A15F48BD20009791E /* en */,
+			);
+			name = Quartz2D.xib;
+			sourceTree = "<group>";
+		};
 		9F1F853A149801200090ABBC /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -462,6 +500,7 @@
 				9F1F8561149801210090ABBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F1F8562149801210090ABBC /* Build configuration list for PBXNativeTarget "DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +509,7 @@
 				9F1F8564149801210090ABBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
