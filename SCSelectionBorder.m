@@ -8,20 +8,21 @@
 
 #import "SCSelectionBorder.h"
 
-
 // The handles that graphics draw on themselves are 10 point by 10 point rectangles.
 const CGFloat SCSelectionBorderHandleWidth = 10.0f;
 const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
 @interface SCSelectionBorder (SCSelectionBorderPrivate)
 - (NSBezierPath *)bezierPathForDrawing;
-- (BOOL)isDrawingHandles;
-- (void)setDrawingHandles:(BOOL)yesOrNo;
 - (NSRect)frameRectForGraphicBounds:(NSRect)rect isLockedAspect:(BOOL)yesOrNo;
 - (NSRect)frameRectForGraphicBounds:(NSRect)rect isLockedAspect:(BOOL)yesOrNo usingHandle:(SCSelectionBorderHandle)handle inView:(NSView *)view;
 @end
 
 @interface SCSelectionBorder ()
+
+@property (readwrite, assign, getter = isDrawingHandles) BOOL drawingHandles;
+
+- (void)_init;
 
 //drawing
 - (void)drawHandlesInView:(NSView *)aView;
@@ -50,13 +51,16 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 - (void)moveWithEvent:(NSEvent *)theEvent atPoint:(NSPoint)where inView:(NSView *)view;
 - (void)resizeWithEvent:(NSEvent *)theEvent byHandle:(SCSelectionBorderHandle)handle atPoint:(NSPoint)where inView:(NSView *)view;
 - (NSInteger)resizeByMovingHandle:(SCSelectionBorderHandle)handle toPoint:(NSPoint)where inView:(NSView *)view;
+
 @end
 
 @implementation SCSelectionBorder
 
+@synthesize dashStyle = _dashStyle;
 @synthesize borderColor = _borderColor;
 @synthesize fillColor = _fillColor;
 @synthesize drawingFill = _drawingFill;
+@synthesize drawingHandles = _drawingHandles;
 @synthesize aspectRatio = _aspectRatio;
 @synthesize lockAspectRatio = _lockAspectRatio;
 @synthesize minSize = _minSize;
@@ -69,21 +73,25 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 - (id)init
 {
     self = [super init];
-    if (self) {
-        self.selectedRect = NSZeroRect;
-        self.minSize = NSMakeSize(100, 100);
-        self.aspectRatio = NSMakeSize(1, 1);
-        self.borderWidth = 1.0;
-        [self setColors:[NSColor blueColor]];
-        self.gridLineNumber = 2;
-        self.drawingGrids = YES;
-        self.drawingFill = YES;
-        [self setDrawingHandles:YES];
-        self.drawingOffView = NO;
-        self.lockAspectRatio = NO;
-    }
-    
+    if (!self) return nil;
+    [self _init];
     return self;
+}
+
+- (void)_init
+{
+    _selectedRect = NSZeroRect;
+    _minSize = NSMakeSize(100, 100);
+    _aspectRatio = NSMakeSize(1, 1);
+    _borderWidth = 1.0;
+    _gridLineNumber = 2;
+    _drawingGrids = YES;
+    _drawingFill = YES;
+    _drawingHandles = YES;
+    _drawingOffView = NO;
+    _lockAspectRatio = NO;
+    _dashStyle = kSCDashStyleDashed;
+    [self setColors:[NSColor highlightColor]];
 }
 
 - (void)dealloc
@@ -104,9 +112,25 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
     NSBezierPath *path = [self bezierPathForDrawing];
     if (path) {
         
+        
         if (self.isDrawingFill) {
-            [self.fillColor set];
-            [path fill];
+            // Finder Style - Fill Inside
+            //            [self.fillColor set];
+            //            [path fill];
+            
+            // iPhoto Style - Fill Outside
+            NSRect selected = self.selectedRect;
+            if (!NSIsEmptyRect(selected)) {
+                //NSRect inset = NSInsetRect(selected, -1.0, -1.0); // do not fill on border
+                NSRect inset = selected;
+                
+                NSBezierPath *cutout = [NSBezierPath bezierPathWithRect:NSInsetRect(aView.bounds, 1.0, 1.0)];
+                [cutout appendBezierPathWithRect:inset];
+                [cutout setWindingRule:NSEvenOddWindingRule];
+                [self.fillColor set]; 
+                [cutout fill];
+                NSFrameRect(self.selectedRect); 
+            }
         }
         
         [self.borderColor set];
@@ -306,8 +330,10 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
 - (void)selectAndTrackMouseWithEvent:(NSEvent *)theEvent atPoint:(NSPoint)mouseLocation inView:(NSView *)view
 {
+    // Check if the mouse location is inside the effective rect or on one of our handls
     SCSelectionBorderHandle handle;
     BOOL result = [self mouse:mouseLocation isInFrame:self.selectedRect inView:view handle:&handle];
+    
     if (result && handle == kSCSelectionBorderHandleNone) {
         // select + moving
         [self moveWithEvent:theEvent atPoint:mouseLocation inView:view];
@@ -324,7 +350,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
 - (void)moveWithEvent:(NSEvent *)theEvent atPoint:(NSPoint)where inView:(NSView *)view
 {
-    [self setDrawingHandles:NO];
+    self.drawingHandles = NO;
     
     // Keep tracking next mouse event till mouse up
     while ([theEvent type] != NSLeftMouseUp) {
@@ -338,7 +364,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         }
     }
     
-    [self setDrawingHandles:YES];
+    self.drawingHandles = YES;
 }
 
 - (void)translateByX:(CGFloat)deltaX y:(CGFloat)deltaY inView:(NSView *)view
@@ -461,7 +487,6 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
     
     // Done
     //self.selectedRect = rect;
-    
     [view setNeedsDisplay:YES]; // redrawing the changes
     
     return newHandle;
@@ -474,6 +499,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
     while ([theEvent type] != NSLeftMouseUp) {
         theEvent = [[view window] nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
         NSPoint currentPoint = [view convertPoint:[theEvent locationInWindow] fromView:nil];
+        
         // Start resizing and tracking if the selection border is flipping vertically or horizontally
         handle = (SCSelectionBorderHandle)[self resizeByMovingHandle:handle toPoint:currentPoint inView:view];
     }
@@ -498,18 +524,33 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 - (NSBezierPath *)bezierPathForDrawing 
 {
     NSBezierPath *path = [NSBezierPath bezierPathWithRect:self.selectedRect];
+    
+    NSInteger dashCount = 0;
+    CGFloat dashArray[3];
+    switch (self.dashStyle) {
+        case kSCDashStyleSolid:
+            dashCount = 0;
+            break;
+        case kSCDashStyleDashed: 
+        {
+            dashCount = 2;
+            dashArray[0] = 5;
+            dashArray[1] = 5;
+        }
+            break;
+        case kSCDashStyleDashedAndDotted: 
+        {
+            dashCount = 3;
+            dashArray[0] = 8;
+            dashArray[1] = 3;
+            dashArray[2] = 8;
+        }
+    }
+    
+    if (dashCount != 0) [path setLineDash:dashArray count:dashCount phase:0.0];
+    
     [path setLineWidth:self.borderWidth];
     return path;
-}
-
-- (BOOL)isDrawingHandles
-{
-    return _drawingHandles;
-}
-
-- (void)setDrawingHandles:(BOOL)yesOrNo
-{
-    _drawingHandles = yesOrNo;
 }
 
 - (NSRect)frameRectForGraphicBounds:(NSRect)rect isLockedAspect:(BOOL)yesOrNo
@@ -562,13 +603,13 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         }
     }
     
-    NSLog(@"X: %f", rect.origin.x);
-    NSLog(@"Y: %f", rect.origin.y);
-    NSLog(@"max x: %f", NSMaxX(rect));
-    NSLog(@"max y: %f", NSMaxY(rect));
-    NSLog(@"width: %f", rect.size.width);
-    NSLog(@"height: %f", rect.size.height);
-    NSLog(@"ratio: %f", rect.size.width / rect.size.height);
+//    NSLog(@"X: %f", rect.origin.x);
+//    NSLog(@"Y: %f", rect.origin.y);
+//    NSLog(@"max x: %f", NSMaxX(rect));
+//    NSLog(@"max y: %f", NSMaxY(rect));
+//    NSLog(@"width: %f", rect.size.width);
+//    NSLog(@"height: %f", rect.size.height);
+//    NSLog(@"ratio: %f", rect.size.width / rect.size.height);
     
     return rect;
 }

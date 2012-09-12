@@ -31,10 +31,20 @@ enum
     kSCSelectionHeightResizeable= 1U << 3,
 };
 
+enum {
+    kSCDashStyleSolid = 0,
+    kSCDashStyleDashed = 1,
+    kSCDashStyleDashedAndDotted = 2,
+};
+
+typedef NSInteger SCDashStyle;
+
 @interface SCSelectionBorder : NSObject
 {
 @private
-    
+    //NSBezierPath Drawing Guideline - Dash Style Patterns
+    //http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Paths/Paths.html
+    SCDashStyle _dashStyle;
     //unsigned int _resizingMask;
     NSColor *_borderColor;
     NSColor *_fillColor;
@@ -52,18 +62,18 @@ enum
     
 }
 
-@property(retain) NSColor *borderColor;
-@property(retain) NSColor *fillColor;
-@property(assign, getter = isDrawingFill) BOOL drawingFill;
-@property(assign) NSSize aspectRatio;
-@property(readonly, getter = canLockAspectRatio) BOOL lockAspectRatio;
-@property(assign) NSSize minSize;
-@property(nonatomic) NSRect selectedRect;
-@property(nonatomic) CGFloat borderWidth;
-@property(assign) unsigned int gridLineNumber;
-@property(assign, getter = isDrawingGrids) BOOL drawingGrids;
-@property(assign, getter = canDrawOffView) BOOL drawingOffView;
-
+@property (retain) NSColor *borderColor;
+@property (retain) NSColor *fillColor;
+@property (assign, getter = isDrawingFill) BOOL drawingFill;
+@property (assign) NSSize aspectRatio;
+@property (readonly, getter = canLockAspectRatio) BOOL lockAspectRatio;
+@property (assign) NSSize minSize;
+@property (nonatomic) NSRect selectedRect;
+@property (nonatomic) CGFloat borderWidth;
+@property (assign) unsigned int gridLineNumber;
+@property (assign, getter = isDrawingGrids) BOOL drawingGrids;
+@property (assign, getter = canDrawOffView) BOOL drawingOffView;
+@property (assign) SCDashStyle dashStyle;
 
 - (void)setColors:(NSColor *)aColor;
 
