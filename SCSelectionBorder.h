@@ -74,6 +74,7 @@ typedef NSInteger SCDashStyle;
 @property (assign, getter = isDrawingGrids) BOOL drawingGrids;
 @property (assign, getter = canDrawOffView) BOOL drawingOffView;
 @property (assign) SCDashStyle dashStyle;
+@property (readonly, assign, getter = isDrawingHandles) BOOL drawingHandles;
 
 - (void)setColors:(NSColor *)aColor;
 

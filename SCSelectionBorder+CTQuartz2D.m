@@ -52,6 +52,9 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     // Restore the graphics state most recently saved .
 	CGContextRestoreGState(context);
     
+    if ([self isDrawingHandles]) {
+        [self drawHandleInCGContext:context rect:self.selectedRect];
+    }
 }
 
 - (void)drawHandleInCGContext:(CGContextRef)context rect:(NSRect)rect

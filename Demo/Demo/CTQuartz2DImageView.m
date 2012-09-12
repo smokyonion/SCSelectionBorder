@@ -50,7 +50,6 @@
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
     [_selectionBorder drawCGContext:context];
-    [_selectionBorder drawHandleInCGContext:context rect:_selectionBorder.selectedRect];
 }
 
 - (void)awakeFromNib
