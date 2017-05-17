@@ -6,13 +6,13 @@
 //  Copyright (c) 2011 Vincent S. Wang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 extern const CGFloat SCSelectionBorderHandleWidth;
 extern const CGFloat SCSelectionBorderHandleHalfWidth;
 
 typedef enum {
-    kSCSelectionBorderHandleNone        = 0, 
+    kSCSelectionBorderHandleNone        = 0,
     kSCSelectionBorderUpperLeftHandle   = 1,
     kSCSelectionBorderUpperMiddleHandle = 2,
     kSCSelectionBorderUpperRightHandle  = 3,
@@ -46,33 +46,23 @@ typedef NSInteger SCDashStyle;
     //http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Paths/Paths.html
     SCDashStyle _dashStyle;
     //unsigned int _resizingMask;
-    NSColor *_borderColor;
-    NSColor *_fillColor;
-    BOOL _drawingFill;
-    CGFloat _borderWidth;
-    NSSize _aspectRatio;
-    BOOL _lockAspectRatio;
-    NSSize _minSize;
-    NSRect _selectedRect;
-    
-    BOOL _drawingHandles;
-    BOOL _drawingGrids;
-    BOOL _drawingOffView;
-    unsigned int _gridLineNumber;
-    
 }
 
 @property (retain) NSColor *borderColor;
+@property (nonatomic) CGFloat borderWidth;
+
 @property (retain) NSColor *fillColor;
 @property (assign, getter = isDrawingFill) BOOL drawingFill;
-@property (assign) NSSize aspectRatio;
-@property (readonly, getter = canLockAspectRatio) BOOL lockAspectRatio;
-@property (assign) NSSize minSize;
+
 @property (nonatomic) NSRect selectedRect;
-@property (nonatomic) CGFloat borderWidth;
+@property (assign) NSSize minSize;
+@property (assign) NSSize aspectRatio;
+@property (nonatomic, assign) BOOL isLockingAspectRatio;
+
 @property (assign) unsigned int gridLineNumber;
 @property (assign, getter = isDrawingGrids) BOOL drawingGrids;
 @property (assign, getter = canDrawOffView) BOOL drawingOffView;
+@property (assign) BOOL isDrawingHandles;
 @property (assign) SCDashStyle dashStyle;
 
 - (void)setColors:(NSColor *)aColor;
@@ -87,10 +77,7 @@ typedef NSInteger SCDashStyle;
 
 /**  track mouse event and decide whether to moving or resizing selection border itself
  @param theEvent a NSEvent
- @returns 
- @exception 
  */
 - (void)selectAndTrackMouseWithEvent:(NSEvent *)theEvent atPoint:(NSPoint)mouseLocation inView:(NSView *)view;
-- (void)setLockAspectRatio:(BOOL)yesOrNo;
 
 @end

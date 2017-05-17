@@ -67,10 +67,10 @@
     if ([sender state] == NSOnState) {
         NSSize s = NSMakeSize(100, 100);
         self.cropMarker.aspectRatio = s;
-        self.cropMarker.lockAspectRatio = YES;
+        self.cropMarker.isLockingAspectRatio = YES;
     }
     else {
-        self.cropMarker.lockAspectRatio = NO;
+        self.cropMarker.isLockingAspectRatio = NO;
     }
     
     [self setNeedsDisplay:YES];
