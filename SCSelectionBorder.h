@@ -11,7 +11,7 @@
 extern const CGFloat SCSelectionBorderHandleWidth;
 extern const CGFloat SCSelectionBorderHandleHalfWidth;
 
-typedef enum {
+typedef NS_ENUM(unsigned int, SCSelectionBorderHandle) {
     kSCSelectionBorderHandleNone        = 0,
     kSCSelectionBorderUpperLeftHandle   = 1,
     kSCSelectionBorderUpperMiddleHandle = 2,
@@ -21,7 +21,7 @@ typedef enum {
     kSCSelectionBorderLowerLeftHandle   = 6,
     kSCSelectionBorderLowerMiddleHandle = 7,
     kSCSelectionBorderLowerRightHandle  = 8,
-} SCSelectionBorderHandle;
+};
 
 enum
 {
@@ -31,13 +31,12 @@ enum
     kSCSelectionHeightResizeable= 1U << 3,
 };
 
-enum {
+
+typedef NS_ENUM(NSInteger, SCDashStyle) {
     kSCDashStyleSolid = 0,
     kSCDashStyleDashed = 1,
     kSCDashStyleDashedAndDotted = 2,
 };
-
-typedef NSInteger SCDashStyle;
 
 NS_ASSUME_NONNULL_BEGIN;
 

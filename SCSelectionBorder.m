@@ -13,7 +13,7 @@ const CGFloat SCSelectionBorderHandleWidth = 10.0f;
 const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
 @interface SCSelectionBorder (SCSelectionBorderPrivate)
-- (NSBezierPath *)bezierPathForDrawing;
+@property (readonly, copy) NSBezierPath *bezierPathForDrawing;
 - (NSRect)frameRectForGraphicBounds:(NSRect)rect isLockedAspect:(BOOL)yesOrNo;
 - (NSRect)frameRectForGraphicBounds:(NSRect)rect isLockedAspect:(BOOL)yesOrNo usingHandle:(SCSelectionBorderHandle)handle inView:(NSView *)view;
 @end
@@ -52,7 +52,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
 @implementation SCSelectionBorder
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (!self) return nil;
@@ -101,7 +101,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
                 NSBezierPath *cutout = [NSBezierPath bezierPathWithRect:NSInsetRect(aView.bounds, 1.0, 1.0)];
                 [cutout appendBezierPathWithRect:inset];
-                [cutout setWindingRule:NSEvenOddWindingRule];
+                cutout.windingRule = NSEvenOddWindingRule;
                 [self.fillColor set];
                 [cutout fill];
                 NSFrameRect(self.selectedRect);
@@ -117,7 +117,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         //            [self drawGridsInRect:self.selectedRect lineNumber:2];
         //        }
 
-        if ([self isDrawingHandles]) {
+        if (self.isDrawingHandles) {
             [self drawHandlesInView:aView];
         }
     }
@@ -328,9 +328,9 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
     self.drawingHandles = NO;
 
     // Keep tracking next mouse event till mouse up
-    while ([theEvent type] != NSLeftMouseUp) {
-        theEvent = [[view window] nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
-        NSPoint currentPoint = [view convertPoint:[theEvent locationInWindow] fromView:nil];
+    while (theEvent.type != NSLeftMouseUp) {
+        theEvent = [view.window nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
+        NSPoint currentPoint = [view convertPoint:theEvent.locationInWindow fromView:nil];
 
         if (!NSEqualPoints(where, currentPoint)) {
             [self translateByX:(currentPoint.x - where.x) y:(currentPoint.y - where.y) inView:view];
@@ -357,7 +357,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
         if (h > bounds.size.height) rect.origin.y = rect.origin.y - (h - bounds.size.height); // top edge
     }
 
-    [self setSelectedRect:rect];
+    self.selectedRect = rect;
 }
 
 - (NSInteger)resizeByMovingHandle:(SCSelectionBorderHandle)handle toPoint:(NSPoint)where inView:(NSView *)view
@@ -471,9 +471,9 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 - (void)resizeWithEvent:(NSEvent *)theEvent byHandle:(SCSelectionBorderHandle)handle atPoint:(NSPoint)where inView:(NSView *)view
 {
     // continuously tracking mouse event and resizing while left mouse button is not up
-    while ([theEvent type] != NSLeftMouseUp) {
-        theEvent = [[view window] nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
-        NSPoint currentPoint = [view convertPoint:[theEvent locationInWindow] fromView:nil];
+    while (theEvent.type != NSLeftMouseUp) {
+        theEvent = [view.window nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
+        NSPoint currentPoint = [view convertPoint:theEvent.locationInWindow fromView:nil];
 
         // Start resizing and tracking if the selection border is flipping vertically or horizontally
         handle = (SCSelectionBorderHandle)[self resizeByMovingHandle:handle toPoint:currentPoint inView:view];
@@ -526,7 +526,7 @@ const CGFloat SCSelectionBorderHandleHalfWidth = 10.0f / 2.0f;
 
     if (dashCount != 0) [path setLineDash:dashArray count:dashCount phase:0.0];
 
-    [path setLineWidth:self.borderWidth];
+    path.lineWidth = self.borderWidth;
     return path;
 }
 

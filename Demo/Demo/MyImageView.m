@@ -15,7 +15,7 @@
 
 @implementation MyImageView
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
     self = [super initWithFrame:frameRect];
     if (self) {
@@ -48,7 +48,7 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSPoint lastLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint lastLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
     [self.cropMarker selectAndTrackMouseWithEvent:theEvent atPoint:lastLocation inView:self];
 }
 
