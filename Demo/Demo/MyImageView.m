@@ -9,15 +9,17 @@
 #import "MyImageView.h"
 #import "SCSelectionBorder.h"
 
-@implementation MyImageView
+@interface MyImageView ()
+@property (strong, readwrite) SCSelectionBorder *cropMarker;
+@end
 
-@synthesize cropMarker = _cropMarker;
+@implementation MyImageView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _cropMarker = [[SCSelectionBorder alloc] init];
+        self.cropMarker = [[SCSelectionBorder alloc] init];
         self.cropMarker.selectedRect = NSMakeRect(100, 100, 200, 200);
     }
     return self;
@@ -27,7 +29,7 @@
 {
     self = [super initWithFrame:frameRect];
     if (self) {
-        _cropMarker = [[SCSelectionBorder alloc] init];
+        self.cropMarker = [[SCSelectionBorder alloc] init];
         self.cropMarker.selectedRect = NSMakeRect(100, 100, 200, 200);
     }
     return self;
@@ -36,12 +38,6 @@
 - (void)awakeFromNib
 {
     self.image = [NSImage imageNamed:@"trails.jpg"];
-}
-
-- (void)dealloc
-{
-    [_cropMarker release], _cropMarker = nil;
-    [super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect

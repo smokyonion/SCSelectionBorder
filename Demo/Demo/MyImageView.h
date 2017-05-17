@@ -11,11 +11,8 @@
 @class SCSelectionBorder;
 
 @interface MyImageView : NSImageView
-{
-    SCSelectionBorder *_cropMarker;
-}
 
-@property (readonly) SCSelectionBorder *cropMarker;
+@property (strong, readonly) SCSelectionBorder *cropMarker;
 
 - (IBAction)takeColorFrom:(id)sender;
 - (IBAction)setAspectRatio:(id)sender;

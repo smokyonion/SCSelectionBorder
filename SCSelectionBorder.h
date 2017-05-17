@@ -50,10 +50,10 @@ NS_ASSUME_NONNULL_BEGIN;
     //unsigned int _resizingMask;
 }
 
-@property (retain) NSColor *borderColor;
+@property (strong) NSColor *borderColor;
 @property (nonatomic) CGFloat borderWidth;
 
-@property (retain) NSColor *fillColor;
+@property (strong) NSColor *fillColor;
 @property (assign, getter = isDrawingFill) BOOL drawingFill;
 
 @property (nonatomic) NSRect selectedRect;
