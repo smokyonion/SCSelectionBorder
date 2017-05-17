@@ -39,6 +39,8 @@ enum {
 
 typedef NSInteger SCDashStyle;
 
+NS_ASSUME_NONNULL_BEGIN;
+
 @interface SCSelectionBorder : NSObject
 {
 @private
@@ -81,3 +83,4 @@ typedef NSInteger SCDashStyle;
 - (void)selectAndTrackMouseWithEvent:(NSEvent *)theEvent atPoint:(NSPoint)mouseLocation inView:(NSView *)view;
 
 @end
+NS_ASSUME_NONNULL_END;
