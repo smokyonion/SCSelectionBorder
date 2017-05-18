@@ -9,25 +9,27 @@
 #import "MyImageView.h"
 #import "SCSelectionBorder.h"
 
+@interface MyImageView ()
+@property (strong, readwrite) SCSelectionBorder *cropMarker;
+@end
+
 @implementation MyImageView
 
-@synthesize cropMarker = _cropMarker;
-
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _cropMarker = [[SCSelectionBorder alloc] init];
+        self.cropMarker = [[SCSelectionBorder alloc] init];
         self.cropMarker.selectedRect = NSMakeRect(100, 100, 200, 200);
     }
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
     self = [super initWithFrame:frameRect];
     if (self) {
-        _cropMarker = [[SCSelectionBorder alloc] init];
+        self.cropMarker = [[SCSelectionBorder alloc] init];
         self.cropMarker.selectedRect = NSMakeRect(100, 100, 200, 200);
     }
     return self;
@@ -38,12 +40,6 @@
     self.image = [NSImage imageNamed:@"trails.jpg"];
 }
 
-- (void)dealloc
-{
-    [_cropMarker release], _cropMarker = nil;
-    [super dealloc];
-}
-
 - (void)drawRect:(NSRect)dirtyRect
 {
     [super drawRect:dirtyRect];
@@ -52,7 +48,7 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSPoint lastLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint lastLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
     [self.cropMarker selectAndTrackMouseWithEvent:theEvent atPoint:lastLocation inView:self];
 }
 
@@ -67,10 +63,10 @@
     if ([sender state] == NSOnState) {
         NSSize s = NSMakeSize(100, 100);
         self.cropMarker.aspectRatio = s;
-        self.cropMarker.lockAspectRatio = YES;
+        self.cropMarker.isLockingAspectRatio = YES;
     }
     else {
-        self.cropMarker.lockAspectRatio = NO;
+        self.cropMarker.isLockingAspectRatio = NO;
     }
     
     [self setNeedsDisplay:YES];

@@ -10,15 +10,9 @@
 
 @class MyImageView;
 
-
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-{
-    MyImageView *_imageView;
-    
-}
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet MyImageView *imageView;
-
+@property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet MyImageView *imageView;
 
 @end
